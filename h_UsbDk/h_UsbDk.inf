@@ -1,0 +1,86 @@
+;
+; h_UsbDk.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Sample ; TODO: edit Class
+ClassGuid={78A1C341-4539-11d3-B88D-00C04FAD5171} ; TODO: edit ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=h_UsbDk.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+
+[DestinationDirs]
+DefaultDestDir = 12
+h_UsbDk_Device_CoInstaller_CopyFiles = 11
+
+; ================= Class section =====================
+
+[ClassInstall32]
+Addreg=SampleClassReg
+
+[SampleClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+h_UsbDk.sys  = 1,,
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%h_UsbDk.DeviceDesc%=h_UsbDk_Device, Root\h_UsbDk ; TODO: edit hw-id
+
+[h_UsbDk_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+h_UsbDk.sys
+
+;-------------- Service installation
+[h_UsbDk_Device.NT.Services]
+AddService = h_UsbDk,%SPSVCINST_ASSOCSERVICE%, h_UsbDk_Service_Inst
+
+; -------------- h_UsbDk driver install sections
+[h_UsbDk_Service_Inst]
+DisplayName    = %h_UsbDk.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\h_UsbDk.sys
+
+;
+;--- h_UsbDk_Device Coinstaller installation ------
+;
+
+[h_UsbDk_Device.NT.CoInstallers]
+AddReg=h_UsbDk_Device_CoInstaller_AddReg
+CopyFiles=h_UsbDk_Device_CoInstaller_CopyFiles
+
+[h_UsbDk_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+
+[h_UsbDk_Device_CoInstaller_CopyFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+
+[h_UsbDk_Device.NT.Wdf]
+KmdfService =  h_UsbDk, h_UsbDk_wdfsect
+[h_UsbDk_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+ClassName="Samples" ; TODO: edit ClassName
+DiskName = "h_UsbDk Installation Disk"
+h_UsbDk.DeviceDesc = "h_UsbDk Device"
+h_UsbDk.SVCDESC = "h_UsbDk Service"

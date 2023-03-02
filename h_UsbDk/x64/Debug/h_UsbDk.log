@@ -1,0 +1,26 @@
+﻿  Building 'h_UsbDk' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Debug\h_UsbDk.inf
+  Stamping [Version] section with DriverVer=02/09/2023,14.24.0.604
+C:\Users\haidragon\source\repos\h_UsbDk\h_UsbDk\h_UsbDk.inf(5-5): warning 1324: [Version] section should specify PnpLockdown=1.
+  DeviceAccess.cpp
+  Driver.cpp
+  正在生成代码...
+  h_UsbDk.vcxproj -> C:\Users\haidragon\source\repos\h_UsbDk\x64\Debug\h_UsbDk.sys
+  Done Adding Additional Store
+  Successfully signed: C:\Users\haidragon\source\repos\h_UsbDk\x64\Debug\h_UsbDk.sys
+  
+  Driver is 'Universal'.
+  .........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  C:\Users\haidragon\source\repos\h_UsbDk\x64\Debug\h_UsbDk\h_usbdk.cat
+  Done Adding Additional Store
+  Successfully signed: C:\Users\haidragon\source\repos\h_UsbDk\x64\Debug\h_UsbDk\h_usbdk.cat
+  

@@ -1,2 +1,1 @@
-# hUsbDk
-vs2019-UsbDk
+# h_usbdk
