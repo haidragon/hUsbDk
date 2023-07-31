@@ -287,7 +287,9 @@ NTSTATUS CUsbDkHubFilterStrategy::PNPPreProcess(PIRP Irp)
                                         return STATUS_SUCCESS;
                                     });
     }
-
+    //hub有个问题 拔掉的时候子设备还在
+    if (irpStack->MinorFunction == IRP_MN_SURPRISE_REMOVAL) this->Children().Clear();
+    if (irpStack->MinorFunction == IRP_MN_REMOVE_DEVICE) this->Children().Clear();
     return CUsbDkFilterStrategy::PNPPreProcess(Irp);
 }
 
